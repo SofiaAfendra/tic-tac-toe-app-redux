@@ -4,47 +4,45 @@ import { Square } from './Square'
 import { calculateWinner } from '../constants'
 import { fillSquare } from '../redux/actions';
 
-class Board extends React.Component {
+const Board = ({ squares, xIsNext, fillSquare }) => {
 
-    renderSquare(index) {
+    function renderSquare(index) {
         return (
             <Square
-                value={this.props.squares[index]}
-                onClick={() => this.props.fillSquare(index)}
+                value={squares[index]}
+                onClick={() => fillSquare(index)}
             />
         );
     }
 
-    render() {
-        const winner = calculateWinner(this.props.squares);
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
-        } else {
-            status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O');
-        }
-
-        return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
-        );
+    const winner = calculateWinner(squares);
+    let status;
+    if (winner) {
+        status = 'Winner: ' + winner;
+    } else {
+        status = 'Next player: ' + (xIsNext ? 'X' : 'O');
     }
+
+    return (
+        <div>
+            <div className="status">{status}</div>
+            <div className="board-row">
+                {renderSquare(0)}
+                {renderSquare(1)}
+                {renderSquare(2)}
+            </div>
+            <div className="board-row">
+                {renderSquare(3)}
+                {renderSquare(4)}
+                {renderSquare(5)}
+            </div>
+            <div className="board-row">
+                {renderSquare(6)}
+                {renderSquare(7)}
+                {renderSquare(8)}
+            </div>
+        </div>
+    );
 }
 
 const mapStateToProps = state => ({
@@ -53,5 +51,3 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { fillSquare })(Board)
-
-
