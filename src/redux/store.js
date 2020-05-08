@@ -1,4 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit'
-import squaresReducer from './reducers/squaresReducer'
+import reducer from './reducers/squaresReducer'
 
-export const store = configureStore({ reducer: squaresReducer })
+export const store = configureStore({ reducer })

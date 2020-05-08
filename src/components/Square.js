@@ -7,4 +7,3 @@ export function Square(props) {
         </button>
     );
 }
-

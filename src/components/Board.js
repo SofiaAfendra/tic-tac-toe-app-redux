@@ -45,9 +45,9 @@ const Board = ({ squares, xIsNext, fillSquare }) => {
     );
 }
 
-const mapStateToProps = state => ({
-    squares: state.squares,
-    xIsNext: state.xIsNext
+const mapStateToProps = ({ squares, xIsNext }) => ({
+    squares,
+    xIsNext
 })
 
 export default connect(mapStateToProps, { fillSquare })(Board)

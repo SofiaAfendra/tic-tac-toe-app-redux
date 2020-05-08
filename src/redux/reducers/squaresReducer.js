@@ -2,25 +2,19 @@ import { calculateWinner } from '../../constants'
 
 const initialState = {
     squares: Array(9).fill(null),
-    xIsNext: true
+    xIsNext: false
 }
 
-const squaresReducer = (state = initialState, action) => {
-    const { index } = action.payload || {}
-    if (index == null) {
-        return state
-    }
+export default (state = initialState, { payload }) => {
     const { squares, xIsNext } = state
-    if (calculateWinner(squares) || squares[index]) {
+    if (calculateWinner(squares) || squares[payload]) {
         return state
     }
     const newSquares = squares.slice()
-    newSquares[index] = xIsNext ? 'X' : 'O'
+    newSquares[payload] = xIsNext ? 'X' : 'O'
     return {
         ...state,
         squares: newSquares,
         xIsNext: !xIsNext
     }
 }
-
-export default squaresReducer
