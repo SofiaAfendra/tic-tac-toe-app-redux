@@ -1,20 +1,24 @@
-import { calculateWinner } from '../../constants'
+import { LOCK_SQUARE, BLOCK_ACTION } from "../actionTypes"
 
 const initialState = {
     squares: Array(9).fill(null),
-    xIsNext: false
+    xIsNext: true
 }
 
-export default (state = initialState, { payload }) => {
-    const { squares, xIsNext } = state
-    if (calculateWinner(squares) || squares[payload]) {
-        return state
-    }
-    const newSquares = squares.slice()
-    newSquares[payload] = xIsNext ? 'X' : 'O'
-    return {
-        ...state,
-        squares: newSquares,
-        xIsNext: !xIsNext
+export default (state = initialState, { type, payload }) => {
+    switch (type) {
+        case BLOCK_ACTION:
+            return ({ ...state })
+
+        case LOCK_SQUARE:
+            const { xIsNext } = state
+            return ({
+                ...state,
+                squares: payload,
+                xIsNext: !xIsNext
+            })
+
+        default:
+            return state
     }
 }
